@@ -1,0 +1,28 @@
+import jieba
+import wordcloud
+import numpy
+from PIL import Image
+
+#序列化参照图片进行数组化传到函数里
+image = numpy.array(Image.open('爱心.png'))
+
+image_color = wordcloud.ImageColorGenerator(image)
+#打开文件
+t = open('核桃编程介绍.txt','r',encoding='UTF-8').read()
+
+#文件分词转换字符串类型
+txt = ' '.join(jieba.lcut(t))
+
+#制作词云对象传入相关参数
+w = wordcloud.WordCloud(
+    font_path='msyh.ttc',
+    mask= image,#设置参照图片的形状
+    color_func=image_color#设置词云的颜色与参照图片颜色
+)
+w.generate(txt)
+w.to_file('介绍.png')
+
+
+#制作图片文本并打开展示
+png = Image.open('介绍.png')
+png.show()
