@@ -1,5 +1,6 @@
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
 class TestTmall(unittest.TestCase):
@@ -17,15 +18,15 @@ class TestTmall(unittest.TestCase):
         assert title == "天猫tmall.com--理想生活上天猫"
 
         # 找到搜索输入框
-        search_box = driver.find_element_by_id('mq')
+        search_box = driver.find_element(By.XPATH,'//body/div[1]/div[2]/div[2]/input[1]')
         search_box.clear()
 
         # 输入查找对象
         search_box.send_keys('显示器')
-        search_box.submit()
+
 
         # 定义搜索出来的产品 并统计个数
-        products = driver.find_elements_by_xpath("//p[@class='productTitle']/a")
+        products = driver.find_elements(By.XPATH,"//p[@class='productTitle']/a")
         print('共找到{}个产品项'.format(len(products)))
 
         # 遍历产品链接名称
